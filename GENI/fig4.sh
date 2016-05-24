@@ -1,6 +1,12 @@
 #!/bin/bash
-AtkStart=1.5
+AtkStart=2
 BinLen=600
+
+if [ $# -ne 2 ]
+then
+    echo "Specify the run time and output file"
+    exit
+fi
 
 prefix=$(cat /etc/hosts | grep server |  cut -f1-3 -d".")
 iface=$(route -n  | grep "$prefix" | awk '{print $8}')
@@ -15,7 +21,7 @@ then
     exit
 fi
 
-sudo ./capture_and_analyze.py $iface $TestDur --output $of --bin $BinLen --show > ${of}point.txt &
+sudo ./capture_and_analyze.py $iface $TestDur --output $of --bin $BinLen > ${of}point.txt &
 
 ssh -o "StrictHostKeyChecking no" client "nohup ITGSend -a server -l sender.log -x receiver.log -C 25 -c 500 -T UDP -t ${TestDur}000 > client.log &"
 

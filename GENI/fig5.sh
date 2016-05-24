@@ -2,6 +2,12 @@
 AtkStart=1.5
 BinLen=600
 
+if [ $# -ne 2 ]
+then
+    echo "Specify the run time and output file"
+    exit
+fi
+
 prefix=$(cat /etc/hosts | grep server |  cut -f1-3 -d".")
 iface=$(route -n  | grep "$prefix" | awk '{print $8}')
 TestDur=$1

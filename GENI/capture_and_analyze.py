@@ -13,21 +13,12 @@ from scapy.all import *
 import numpy as np
 import matplotlib.pyplot as plt
 
-names = {"10.10.1.1": "Client",
-        "10.10.2.1": "Attacker 1",
-        "10.10.3.1": "Attacker 2",
-        "10.10.4.1": "Attacker 3",
-        "10.10.5.1": "Attacker 4",
-        "10.10.6.1": "Attacker 5",
-        "10.10.7.1": "Attacker 6",
-        "10.10.8.1": "Attacker 7",
-        "10.10.9.1": "Attacker 8",
-        "10.10.10.1": "Attacker 9",
-        "10.10.11.1": "Attacker 10",
-        "10.10.12.1": "Attacker 11",
-        "10.10.13.1": "Attacker 12",
-        "Total": "Total Bandwidth"
-    }
+with open('addresses.txt', 'rb') as fa:
+    names = {}
+    for aline in fa:
+        names[aline.strip().split(' ')[1]] = aline.strip().split(' ')[0]
+    names["Total"] = "Total Bandwidth"
+    print names
 
 def main(interface, show, duration, bins, output):
     """Sniffs packets on the given interface for given duration and calculates per-source bandwidth"""
