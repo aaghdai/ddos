@@ -69,4 +69,4 @@ bin/
 man/
 share/
 pip-selfcheck.json
-configuration.txt
+addresses.txt

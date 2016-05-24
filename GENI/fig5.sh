@@ -1,10 +1,19 @@
-TestDur=25
-AtkDuration=22
+#!/bin/bash
 AtkStart=1.5
 BinLen=600
 
-iface=$1
+prefix=$(cat /etc/hosts | grep server |  cut -f1-3 -d".")
+iface=$(route -n  | grep "$prefix" | awk '{print $8}')
+TestDur=$1
 of=$2
+
+AtkDuration=$(expr $TestDur - $AtkStart)
+
+if [ ! -f "addresses.txt" ]
+then
+    echo 'Please run config before starting the experiment'
+    exit
+fi
 
 sudo ./capture_and_analyze.py $iface $TestDur --output $of --bin $BinLen --show > ${of}point.txt &
 
