@@ -62,3 +62,10 @@ target/
 
 #Ipython Notebook
 .ipynb_checkpoints
+
+include/
+local/
+bin/
+man/
+share/
+pip-selfcheck.json
